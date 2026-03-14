@@ -1,0 +1,103 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "intralinks": "https://developers.intralinks.com/schema/",
+    "Workspace": {
+      "@id": "intralinks:Workspace",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "type": "schema:additionalType",
+        "phase": "intralinks:phase",
+        "status": "intralinks:status",
+        "host": "schema:provider",
+        "createdOn": "schema:dateCreated",
+        "updatedOn": "schema:dateModified",
+        "statistics": "intralinks:statistics"
+      }
+    },
+    "Document": {
+      "@id": "schema:DigitalDocument",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "folderId": "schema:isPartOf",
+        "fileSize": "schema:contentSize",
+        "extension": "schema:encodingFormat",
+        "version": "schema:version",
+        "note": "schema:description",
+        "createdBy": "schema:creator",
+        "createdOn": "schema:dateCreated",
+        "updatedOn": "schema:dateModified",
+        "lastAccessedOn": "intralinks:lastAccessedOn"
+      }
+    },
+    "Folder": {
+      "@id": "intralinks:Folder",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "parentId": "schema:isPartOf",
+        "indexNumber": "schema:position",
+        "hasChildFolders": "intralinks:hasChildFolders",
+        "version": "schema:version",
+        "createdOn": "schema:dateCreated",
+        "updatedOn": "schema:dateModified"
+      }
+    },
+    "Group": {
+      "@id": "intralinks:Group",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "type": "schema:additionalType",
+        "note": "schema:description",
+        "memberCount": "intralinks:memberCount",
+        "foldersWithAccess": "intralinks:foldersWithAccess",
+        "createdOn": "schema:dateCreated",
+        "updatedOn": "schema:dateModified"
+      }
+    },
+    "User": {
+      "@id": "schema:Person",
+      "@context": {
+        "id": "@id",
+        "firstName": "schema:givenName",
+        "lastName": "schema:familyName",
+        "emailId": "schema:email",
+        "organization": "schema:memberOf",
+        "roleType": "intralinks:roleType",
+        "lastAccessedOn": "intralinks:lastAccessedOn",
+        "createdOn": "schema:dateCreated"
+      }
+    },
+    "Permission": {
+      "@id": "intralinks:Permission",
+      "@context": {
+        "id": "@id",
+        "groupId": "intralinks:groupId",
+        "folderId": "intralinks:folderId",
+        "permission": "intralinks:permissionLevel"
+      }
+    },
+    "Splash": {
+      "@id": "intralinks:Splash",
+      "@context": {
+        "id": "@id",
+        "hasAcceptButton": "intralinks:hasAcceptButton",
+        "splashText": "schema:text",
+        "hasImage": "intralinks:hasImage"
+      }
+    },
+    "CustomField": {
+      "@id": "intralinks:CustomField",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "type": "schema:additionalType",
+        "isRequired": "intralinks:isRequired",
+        "options": "intralinks:options"
+      }
+    }
+  }
+}

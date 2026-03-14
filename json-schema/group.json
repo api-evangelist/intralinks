@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "group.json",
+  "title": "Intralinks Group",
+  "description": "A group within an Intralinks workspace that organizes users and controls document access permissions. Permissions in Intralinks are assigned at the group level.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the group."
+    },
+    "name": {
+      "type": "string",
+      "description": "Group name."
+    },
+    "type": {
+      "type": "string",
+      "description": "Group type."
+    },
+    "note": {
+      "type": "string",
+      "description": "Group description or note."
+    },
+    "memberCount": {
+      "type": "integer",
+      "description": "Number of members in the group."
+    },
+    "foldersWithAccess": {
+      "type": "integer",
+      "description": "Number of folders accessible to this group."
+    },
+    "createdOn": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Group creation timestamp."
+    },
+    "updatedOn": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last modification timestamp."
+    }
+  },
+  "required": ["name"]
+}

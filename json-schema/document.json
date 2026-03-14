@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "document.json",
+  "title": "Intralinks Document",
+  "description": "A document stored within an Intralinks workspace, representing a file with associated metadata, versioning, and access control.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the document."
+    },
+    "name": {
+      "type": "string",
+      "description": "Document name."
+    },
+    "folderId": {
+      "type": "string",
+      "description": "ID of the containing folder."
+    },
+    "fileSize": {
+      "type": "integer",
+      "description": "File size in bytes."
+    },
+    "extension": {
+      "type": "string",
+      "description": "File extension (e.g., pdf, docx)."
+    },
+    "version": {
+      "type": "integer",
+      "description": "Version number of the document."
+    },
+    "note": {
+      "type": "string",
+      "description": "Document note or description."
+    },
+    "createdBy": {
+      "type": "string",
+      "description": "User who created the document."
+    },
+    "createdOn": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Document creation timestamp."
+    },
+    "updatedOn": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last modification timestamp."
+    },
+    "lastAccessedOn": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of last access."
+    }
+  },
+  "required": ["name", "folderId"]
+}

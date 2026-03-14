@@ -1,0 +1,973 @@
+openapi: 3.0.3
+info:
+  title: Intralinks API
+  description: >-
+    The Intralinks API provides RESTful access to the Intralinks virtual data
+    room platform, enabling programmatic management of workspaces (exchanges),
+    documents, folders, groups, users, permissions, splash screens, and
+    custom fields. It supports secure document sharing, M&A due diligence
+    workflows, and confidential business collaboration. Authentication is
+    handled via OAuth 2.0 with authorization code and client credentials flows.
+  version: 2.0.0
+  contact:
+    name: Intralinks Developer Support
+    url: https://developers.intralinks.com
+  termsOfService: https://www.intralinks.com/terms-of-use
+servers:
+  - url: https://api.intralinks.com/v2
+    description: Intralinks Production API
+paths:
+  /oauth/token:
+    post:
+      operationId: getOAuthToken
+      summary: Obtain OAuth Token
+      description: >-
+        Authenticates and returns an OAuth access token and refresh token.
+        The access token is valid for 60 minutes and the refresh token for
+        30 days.
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                grant_type:
+                  type: string
+                  enum:
+                    - authorization_code
+                    - client_credentials
+                    - refresh_token
+                client_id:
+                  type: string
+                client_secret:
+                  type: string
+                code:
+                  type: string
+                redirect_uri:
+                  type: string
+                refresh_token:
+                  type: string
+              required:
+                - grant_type
+                - client_id
+                - client_secret
+      responses:
+        '200':
+          description: Successful authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthToken'
+        '401':
+          description: Authentication failed
+  /oauth/revoke:
+    post:
+      operationId: revokeOAuthToken
+      summary: Revoke OAuth Token
+      description: Revokes an access token or refresh token to log the user out.
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+              required:
+                - token
+      responses:
+        '200':
+          description: Token revoked successfully
+  /workspaces:
+    get:
+      operationId: listWorkspaces
+      summary: List Workspaces
+      description: >-
+        Returns a list of workspaces (exchanges / virtual data rooms) accessible
+        to the authenticated user.
+      tags:
+        - Workspaces
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+        - name: offset
+          in: query
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A list of workspaces
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  workspace:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Workspace'
+    post:
+      operationId: createWorkspace
+      summary: Create Workspace
+      description: Creates a new workspace (exchange / virtual data room).
+      tags:
+        - Workspaces
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Workspace'
+      responses:
+        '201':
+          description: Workspace created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+  /workspaces/{workspaceId}:
+    get:
+      operationId: getWorkspace
+      summary: Get Workspace
+      description: Returns details for a specific workspace.
+      tags:
+        - Workspaces
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+      responses:
+        '200':
+          description: Workspace details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+        '404':
+          description: Workspace not found
+    put:
+      operationId: updateWorkspace
+      summary: Update Workspace
+      description: Updates an existing workspace.
+      tags:
+        - Workspaces
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Workspace'
+      responses:
+        '200':
+          description: Workspace updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+    delete:
+      operationId: deleteWorkspace
+      summary: Delete Workspace
+      description: Deletes a workspace.
+      tags:
+        - Workspaces
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+      responses:
+        '204':
+          description: Workspace deleted
+  /workspaces/{workspaceId}/folders:
+    get:
+      operationId: listFolders
+      summary: List Folders
+      description: Returns folders within a workspace.
+      tags:
+        - Folders
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+      responses:
+        '200':
+          description: A list of folders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  folder:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Folder'
+    post:
+      operationId: createFolder
+      summary: Create Folder
+      description: Creates a new folder in a workspace.
+      tags:
+        - Folders
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Folder'
+      responses:
+        '201':
+          description: Folder created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+  /workspaces/{workspaceId}/folders/{folderId}:
+    get:
+      operationId: getFolder
+      summary: Get Folder
+      description: Returns details for a specific folder.
+      tags:
+        - Folders
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+        - $ref: '#/components/parameters/folderId'
+      responses:
+        '200':
+          description: Folder details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+    put:
+      operationId: updateFolder
+      summary: Update Folder
+      description: Updates an existing folder.
+      tags:
+        - Folders
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+        - $ref: '#/components/parameters/folderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Folder'
+      responses:
+        '200':
+          description: Folder updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+    delete:
+      operationId: deleteFolder
+      summary: Delete Folder
+      description: Deletes a folder from a workspace.
+      tags:
+        - Folders
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+        - $ref: '#/components/parameters/folderId'
+      responses:
+        '204':
+          description: Folder deleted
+  /workspaces/{workspaceId}/documents:
+    get:
+      operationId: listDocuments
+      summary: List Documents
+      description: Returns documents within a workspace, optionally filtered by folder.
+      tags:
+        - Documents
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+        - name: folderId
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of documents
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  document:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Document'
+    post:
+      operationId: uploadDocument
+      summary: Upload Document
+      description: Uploads a new document to a workspace.
+      tags:
+        - Documents
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                folderId:
+                  type: string
+                name:
+                  type: string
+                note:
+                  type: string
+              required:
+                - file
+                - folderId
+      responses:
+        '201':
+          description: Document uploaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+  /workspaces/{workspaceId}/documents/{documentId}:
+    get:
+      operationId: getDocument
+      summary: Get Document
+      description: Returns metadata for a specific document.
+      tags:
+        - Documents
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+        - $ref: '#/components/parameters/documentId'
+      responses:
+        '200':
+          description: Document details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+    put:
+      operationId: updateDocument
+      summary: Update Document
+      description: Updates document metadata.
+      tags:
+        - Documents
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+        - $ref: '#/components/parameters/documentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Document'
+      responses:
+        '200':
+          description: Document updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+    delete:
+      operationId: deleteDocument
+      summary: Delete Document
+      description: Deletes a document from a workspace.
+      tags:
+        - Documents
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+        - $ref: '#/components/parameters/documentId'
+      responses:
+        '204':
+          description: Document deleted
+  /workspaces/{workspaceId}/documents/{documentId}/download:
+    get:
+      operationId: downloadDocument
+      summary: Download Document
+      description: Downloads the file content of a document.
+      tags:
+        - Documents
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+        - $ref: '#/components/parameters/documentId'
+      responses:
+        '200':
+          description: Document file content
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+  /workspaces/{workspaceId}/groups:
+    get:
+      operationId: listGroups
+      summary: List Groups
+      description: Returns groups within a workspace.
+      tags:
+        - Groups
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+      responses:
+        '200':
+          description: A list of groups
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  group:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Group'
+    post:
+      operationId: createGroup
+      summary: Create Group
+      description: Creates a new group in a workspace.
+      tags:
+        - Groups
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Group'
+      responses:
+        '201':
+          description: Group created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+  /workspaces/{workspaceId}/groups/{groupId}:
+    get:
+      operationId: getGroup
+      summary: Get Group
+      description: Returns details for a specific group.
+      tags:
+        - Groups
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+        - $ref: '#/components/parameters/groupId'
+      responses:
+        '200':
+          description: Group details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+    put:
+      operationId: updateGroup
+      summary: Update Group
+      description: Updates an existing group.
+      tags:
+        - Groups
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+        - $ref: '#/components/parameters/groupId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Group'
+      responses:
+        '200':
+          description: Group updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+    delete:
+      operationId: deleteGroup
+      summary: Delete Group
+      description: Deletes a group from a workspace.
+      tags:
+        - Groups
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+        - $ref: '#/components/parameters/groupId'
+      responses:
+        '204':
+          description: Group deleted
+  /workspaces/{workspaceId}/groups/{groupId}/members:
+    get:
+      operationId: listGroupMembers
+      summary: List Group Members
+      description: Returns members (users) belonging to a group.
+      tags:
+        - Groups
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+        - $ref: '#/components/parameters/groupId'
+      responses:
+        '200':
+          description: A list of group members
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+    post:
+      operationId: addGroupMember
+      summary: Add Group Member
+      description: Adds a user to a group.
+      tags:
+        - Groups
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+        - $ref: '#/components/parameters/groupId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Member added to group
+  /workspaces/{workspaceId}/permissions:
+    get:
+      operationId: listPermissions
+      summary: List Permissions
+      description: >-
+        Returns permission assignments for a workspace. Permissions are
+        assigned at the group level and determine document visibility.
+      tags:
+        - Permissions
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+      responses:
+        '200':
+          description: A list of permissions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  permission:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Permission'
+    post:
+      operationId: createPermission
+      summary: Create Permission
+      description: Assigns a permission to a group for a folder or document.
+      tags:
+        - Permissions
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Permission'
+      responses:
+        '201':
+          description: Permission created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Permission'
+  /workspaces/{workspaceId}/splash:
+    get:
+      operationId: getSplash
+      summary: Get Splash Screen
+      description: >-
+        Returns the splash screen configuration for a workspace, often used
+        for NDA agreements or welcome messages.
+      tags:
+        - Splash
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+      responses:
+        '200':
+          description: Splash screen details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Splash'
+    put:
+      operationId: updateSplash
+      summary: Update Splash Screen
+      description: Updates the splash screen configuration for a workspace.
+      tags:
+        - Splash
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Splash'
+      responses:
+        '200':
+          description: Splash updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Splash'
+  /workspaces/{workspaceId}/customfields:
+    get:
+      operationId: listCustomFields
+      summary: List Custom Fields
+      description: Returns custom field definitions for a workspace.
+      tags:
+        - Custom Fields
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/workspaceId'
+      responses:
+        '200':
+          description: A list of custom fields
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  customField:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CustomField'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        OAuth 2.0 Bearer token obtained from the /oauth/token endpoint.
+        Pass the token in the Authorization header as 'Bearer {token}'.
+  parameters:
+    workspaceId:
+      name: workspaceId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the workspace.
+    folderId:
+      name: folderId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the folder.
+    documentId:
+      name: documentId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the document.
+    groupId:
+      name: groupId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the group.
+  schemas:
+    OAuthToken:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: The OAuth access token valid for 60 minutes.
+        refresh_token:
+          type: string
+          description: The refresh token valid for 30 days.
+        token_type:
+          type: string
+          example: Bearer
+        expires_in:
+          type: integer
+          description: Token lifetime in seconds.
+    Workspace:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the workspace.
+        name:
+          type: string
+          description: Name of the workspace.
+        type:
+          type: string
+          description: Type of workspace (e.g., ATC, ILP).
+        phase:
+          type: string
+          description: Current phase of the workspace.
+        status:
+          type: string
+          description: Status of the workspace.
+        host:
+          type: string
+          description: Host organization name.
+        createdOn:
+          type: string
+          format: date-time
+          description: Workspace creation timestamp.
+        updatedOn:
+          type: string
+          format: date-time
+          description: Last modification timestamp.
+        statistics:
+          type: object
+          properties:
+            documentCount:
+              type: integer
+            folderCount:
+              type: integer
+            userCount:
+              type: integer
+            groupCount:
+              type: integer
+    Folder:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the folder.
+        name:
+          type: string
+          description: Folder name.
+        parentId:
+          type: string
+          description: ID of the parent folder.
+        indexNumber:
+          type: string
+          description: Index number for folder ordering.
+        hasChildFolders:
+          type: boolean
+          description: Whether the folder contains subfolders.
+        version:
+          type: integer
+          description: Version number of the folder.
+        createdOn:
+          type: string
+          format: date-time
+        updatedOn:
+          type: string
+          format: date-time
+    Document:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the document.
+        name:
+          type: string
+          description: Document name.
+        folderId:
+          type: string
+          description: ID of the containing folder.
+        fileSize:
+          type: integer
+          format: int64
+          description: File size in bytes.
+        extension:
+          type: string
+          description: File extension.
+        version:
+          type: integer
+          description: Version number.
+        note:
+          type: string
+          description: Document note or description.
+        createdBy:
+          type: string
+          description: User who created the document.
+        createdOn:
+          type: string
+          format: date-time
+        updatedOn:
+          type: string
+          format: date-time
+        lastAccessedOn:
+          type: string
+          format: date-time
+    Group:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the group.
+        name:
+          type: string
+          description: Group name.
+        type:
+          type: string
+          description: Group type.
+        note:
+          type: string
+          description: Group description or note.
+        memberCount:
+          type: integer
+          description: Number of members in the group.
+        foldersWithAccess:
+          type: integer
+          description: Number of folders accessible to this group.
+        createdOn:
+          type: string
+          format: date-time
+        updatedOn:
+          type: string
+          format: date-time
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the user.
+        firstName:
+          type: string
+          description: First name.
+        lastName:
+          type: string
+          description: Last name.
+        emailId:
+          type: string
+          format: email
+          description: Email address.
+        organization:
+          type: string
+          description: Organization name.
+        roleType:
+          type: string
+          description: Role assigned to the user in the workspace.
+        lastAccessedOn:
+          type: string
+          format: date-time
+        createdOn:
+          type: string
+          format: date-time
+    Permission:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the permission.
+        groupId:
+          type: string
+          description: ID of the group this permission is assigned to.
+        folderId:
+          type: string
+          description: ID of the folder this permission applies to.
+        permission:
+          type: string
+          enum:
+            - SEE
+            - SEE_AND_DOWNLOAD
+            - SEE_DOWNLOAD_AND_PRINT
+          description: Permission level granted.
+    Splash:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the splash screen.
+        hasAcceptButton:
+          type: boolean
+          description: Whether the splash screen requires acceptance.
+        splashText:
+          type: string
+          description: Text content of the splash screen.
+        hasImage:
+          type: boolean
+          description: Whether the splash screen includes an image.
+    CustomField:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the custom field.
+        name:
+          type: string
+          description: Custom field name.
+        type:
+          type: string
+          enum:
+            - TEXT
+            - DATE
+            - SELECT
+          description: Custom field data type.
+        isRequired:
+          type: boolean
+          description: Whether the field is mandatory.
+        options:
+          type: array
+          items:
+            type: string
+          description: Available options for SELECT type fields.

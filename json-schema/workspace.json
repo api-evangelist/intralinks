@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "workspace.json",
+  "title": "Intralinks Workspace",
+  "description": "A workspace (exchange or virtual data room) in the Intralinks platform used for secure document sharing and collaboration during M&A transactions, due diligence, and other confidential business processes.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the workspace."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the workspace."
+    },
+    "type": {
+      "type": "string",
+      "description": "Type of workspace (e.g., ATC, ILP)."
+    },
+    "phase": {
+      "type": "string",
+      "description": "Current phase of the workspace lifecycle."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current status of the workspace."
+    },
+    "host": {
+      "type": "string",
+      "description": "Host organization name."
+    },
+    "createdOn": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Workspace creation timestamp."
+    },
+    "updatedOn": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last modification timestamp."
+    },
+    "statistics": {
+      "type": "object",
+      "description": "Aggregate statistics for the workspace.",
+      "properties": {
+        "documentCount": {
+          "type": "integer",
+          "description": "Total number of documents."
+        },
+        "folderCount": {
+          "type": "integer",
+          "description": "Total number of folders."
+        },
+        "userCount": {
+          "type": "integer",
+          "description": "Total number of users."
+        },
+        "groupCount": {
+          "type": "integer",
+          "description": "Total number of groups."
+        }
+      }
+    }
+  },
+  "required": ["name"]
+}

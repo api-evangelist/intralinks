@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "splash.json",
+  "title": "Intralinks Splash Screen",
+  "description": "A splash screen configuration for an Intralinks workspace, typically used to display NDA agreements, welcome messages, or branding to users entering the workspace.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the splash screen."
+    },
+    "hasAcceptButton": {
+      "type": "boolean",
+      "description": "Whether the splash screen requires user acceptance."
+    },
+    "splashText": {
+      "type": "string",
+      "description": "Text content of the splash screen."
+    },
+    "hasImage": {
+      "type": "boolean",
+      "description": "Whether the splash screen includes an image."
+    }
+  }
+}

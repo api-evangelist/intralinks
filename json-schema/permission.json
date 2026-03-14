@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "permission.json",
+  "title": "Intralinks Permission",
+  "description": "A permission assignment in an Intralinks workspace that controls group-level access to folders and documents. Permissions determine whether content is visible to participant groups.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the permission."
+    },
+    "groupId": {
+      "type": "string",
+      "description": "ID of the group this permission is assigned to."
+    },
+    "folderId": {
+      "type": "string",
+      "description": "ID of the folder this permission applies to."
+    },
+    "permission": {
+      "type": "string",
+      "enum": ["SEE", "SEE_AND_DOWNLOAD", "SEE_DOWNLOAD_AND_PRINT"],
+      "description": "Permission level granted to the group."
+    }
+  },
+  "required": ["groupId", "folderId", "permission"]
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "folder.json",
+  "title": "Intralinks Folder",
+  "description": "A folder within an Intralinks workspace used to organize documents in a hierarchical structure with index-based ordering.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the folder."
+    },
+    "name": {
+      "type": "string",
+      "description": "Folder name."
+    },
+    "parentId": {
+      "type": "string",
+      "description": "ID of the parent folder."
+    },
+    "indexNumber": {
+      "type": "string",
+      "description": "Index number for folder ordering."
+    },
+    "hasChildFolders": {
+      "type": "boolean",
+      "description": "Whether the folder contains subfolders."
+    },
+    "version": {
+      "type": "integer",
+      "description": "Version number of the folder."
+    },
+    "createdOn": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Folder creation timestamp."
+    },
+    "updatedOn": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last modification timestamp."
+    }
+  },
+  "required": ["name"]
+}
