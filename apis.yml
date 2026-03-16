@@ -65,7 +65,7 @@ common:
     type: GettingStarted
     description: 'null'
 created: '2025-01-01'
-modified: '2026-03-14'
+modified: '2026-03-16'
 position: Consumer
 description: >-
   Intralinks is a cloud-based virtual data room and secure file sharing platform
@@ -75,5 +75,5 @@ description: >-
   integration with enterprise document management and deal workflow systems.
 maintainers:
   - FN: Kin Lane
-    email: info@apievangelist.com
+    email: kin@apievangelist.com
 specificationVersion: '0.19'
