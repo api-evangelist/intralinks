@@ -971,3 +971,12 @@ components:
           items:
             type: string
           description: Available options for SELECT type fields.
+tags:
+  - name: Authentication
+  - name: Custom Fields
+  - name: Documents
+  - name: Folders
+  - name: Groups
+  - name: Permissions
+  - name: Splash
+  - name: Workspaces

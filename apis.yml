@@ -5,9 +5,9 @@ apis:
   - aid: intralinks:api
     name: Intralinks API
     tags:
-      - Virtual Data Room
       - Document Management
       - Secure File Sharing
+      - Virtual Data Room
     humanURL: https://developers.intralinks.com
     properties:
       - url: https://developers.intralinks.com/swagger/
@@ -41,9 +41,9 @@ apis:
       diligence workflows, and confidential business collaboration.
 name: Intralinks
 tags:
-  - Virtual Data Room
   - Document Management
   - Secure File Sharing
+  - Virtual Data Room
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
