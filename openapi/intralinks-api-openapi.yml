@@ -20,7 +20,7 @@ paths:
   /oauth/token:
     post:
       operationId: getOAuthToken
-      summary: Obtain OAuth Token
+      summary: Intralinks Obtain OAuth Token
       description: >-
         Authenticates and returns an OAuth access token and refresh token.
         The access token is valid for 60 minutes and the refresh token for
@@ -66,7 +66,7 @@ paths:
   /oauth/revoke:
     post:
       operationId: revokeOAuthToken
-      summary: Revoke OAuth Token
+      summary: Intralinks Revoke OAuth Token
       description: Revokes an access token or refresh token to log the user out.
       tags:
         - Authentication
@@ -87,7 +87,7 @@ paths:
   /workspaces:
     get:
       operationId: listWorkspaces
-      summary: List Workspaces
+      summary: Intralinks List Workspaces
       description: >-
         Returns a list of workspaces (exchanges / virtual data rooms) accessible
         to the authenticated user.
@@ -122,7 +122,7 @@ paths:
                       $ref: '#/components/schemas/Workspace'
     post:
       operationId: createWorkspace
-      summary: Create Workspace
+      summary: Intralinks Create Workspace
       description: Creates a new workspace (exchange / virtual data room).
       tags:
         - Workspaces
@@ -144,7 +144,7 @@ paths:
   /workspaces/{workspaceId}:
     get:
       operationId: getWorkspace
-      summary: Get Workspace
+      summary: Intralinks Get Workspace
       description: Returns details for a specific workspace.
       tags:
         - Workspaces
@@ -163,7 +163,7 @@ paths:
           description: Workspace not found
     put:
       operationId: updateWorkspace
-      summary: Update Workspace
+      summary: Intralinks Update Workspace
       description: Updates an existing workspace.
       tags:
         - Workspaces
@@ -186,7 +186,7 @@ paths:
                 $ref: '#/components/schemas/Workspace'
     delete:
       operationId: deleteWorkspace
-      summary: Delete Workspace
+      summary: Intralinks Delete Workspace
       description: Deletes a workspace.
       tags:
         - Workspaces
@@ -200,7 +200,7 @@ paths:
   /workspaces/{workspaceId}/folders:
     get:
       operationId: listFolders
-      summary: List Folders
+      summary: Intralinks List Folders
       description: Returns folders within a workspace.
       tags:
         - Folders
@@ -222,7 +222,7 @@ paths:
                       $ref: '#/components/schemas/Folder'
     post:
       operationId: createFolder
-      summary: Create Folder
+      summary: Intralinks Create Folder
       description: Creates a new folder in a workspace.
       tags:
         - Folders
@@ -246,7 +246,7 @@ paths:
   /workspaces/{workspaceId}/folders/{folderId}:
     get:
       operationId: getFolder
-      summary: Get Folder
+      summary: Intralinks Get Folder
       description: Returns details for a specific folder.
       tags:
         - Folders
@@ -264,7 +264,7 @@ paths:
                 $ref: '#/components/schemas/Folder'
     put:
       operationId: updateFolder
-      summary: Update Folder
+      summary: Intralinks Update Folder
       description: Updates an existing folder.
       tags:
         - Folders
@@ -288,7 +288,7 @@ paths:
                 $ref: '#/components/schemas/Folder'
     delete:
       operationId: deleteFolder
-      summary: Delete Folder
+      summary: Intralinks Delete Folder
       description: Deletes a folder from a workspace.
       tags:
         - Folders
@@ -303,7 +303,7 @@ paths:
   /workspaces/{workspaceId}/documents:
     get:
       operationId: listDocuments
-      summary: List Documents
+      summary: Intralinks List Documents
       description: Returns documents within a workspace, optionally filtered by folder.
       tags:
         - Documents
@@ -329,7 +329,7 @@ paths:
                       $ref: '#/components/schemas/Document'
     post:
       operationId: uploadDocument
-      summary: Upload Document
+      summary: Intralinks Upload Document
       description: Uploads a new document to a workspace.
       tags:
         - Documents
@@ -366,7 +366,7 @@ paths:
   /workspaces/{workspaceId}/documents/{documentId}:
     get:
       operationId: getDocument
-      summary: Get Document
+      summary: Intralinks Get Document
       description: Returns metadata for a specific document.
       tags:
         - Documents
@@ -384,7 +384,7 @@ paths:
                 $ref: '#/components/schemas/Document'
     put:
       operationId: updateDocument
-      summary: Update Document
+      summary: Intralinks Update Document
       description: Updates document metadata.
       tags:
         - Documents
@@ -408,7 +408,7 @@ paths:
                 $ref: '#/components/schemas/Document'
     delete:
       operationId: deleteDocument
-      summary: Delete Document
+      summary: Intralinks Delete Document
       description: Deletes a document from a workspace.
       tags:
         - Documents
@@ -423,7 +423,7 @@ paths:
   /workspaces/{workspaceId}/documents/{documentId}/download:
     get:
       operationId: downloadDocument
-      summary: Download Document
+      summary: Intralinks Download Document
       description: Downloads the file content of a document.
       tags:
         - Documents
@@ -443,7 +443,7 @@ paths:
   /workspaces/{workspaceId}/groups:
     get:
       operationId: listGroups
-      summary: List Groups
+      summary: Intralinks List Groups
       description: Returns groups within a workspace.
       tags:
         - Groups
@@ -465,7 +465,7 @@ paths:
                       $ref: '#/components/schemas/Group'
     post:
       operationId: createGroup
-      summary: Create Group
+      summary: Intralinks Create Group
       description: Creates a new group in a workspace.
       tags:
         - Groups
@@ -489,7 +489,7 @@ paths:
   /workspaces/{workspaceId}/groups/{groupId}:
     get:
       operationId: getGroup
-      summary: Get Group
+      summary: Intralinks Get Group
       description: Returns details for a specific group.
       tags:
         - Groups
@@ -507,7 +507,7 @@ paths:
                 $ref: '#/components/schemas/Group'
     put:
       operationId: updateGroup
-      summary: Update Group
+      summary: Intralinks Update Group
       description: Updates an existing group.
       tags:
         - Groups
@@ -531,7 +531,7 @@ paths:
                 $ref: '#/components/schemas/Group'
     delete:
       operationId: deleteGroup
-      summary: Delete Group
+      summary: Intralinks Delete Group
       description: Deletes a group from a workspace.
       tags:
         - Groups
@@ -546,7 +546,7 @@ paths:
   /workspaces/{workspaceId}/groups/{groupId}/members:
     get:
       operationId: listGroupMembers
-      summary: List Group Members
+      summary: Intralinks List Group Members
       description: Returns members (users) belonging to a group.
       tags:
         - Groups
@@ -569,7 +569,7 @@ paths:
                       $ref: '#/components/schemas/User'
     post:
       operationId: addGroupMember
-      summary: Add Group Member
+      summary: Intralinks Add Group Member
       description: Adds a user to a group.
       tags:
         - Groups
@@ -590,7 +590,7 @@ paths:
   /workspaces/{workspaceId}/permissions:
     get:
       operationId: listPermissions
-      summary: List Permissions
+      summary: Intralinks List Permissions
       description: >-
         Returns permission assignments for a workspace. Permissions are
         assigned at the group level and determine document visibility.
@@ -614,7 +614,7 @@ paths:
                       $ref: '#/components/schemas/Permission'
     post:
       operationId: createPermission
-      summary: Create Permission
+      summary: Intralinks Create Permission
       description: Assigns a permission to a group for a folder or document.
       tags:
         - Permissions
@@ -638,7 +638,7 @@ paths:
   /workspaces/{workspaceId}/splash:
     get:
       operationId: getSplash
-      summary: Get Splash Screen
+      summary: Intralinks Get Splash Screen
       description: >-
         Returns the splash screen configuration for a workspace, often used
         for NDA agreements or welcome messages.
@@ -657,7 +657,7 @@ paths:
                 $ref: '#/components/schemas/Splash'
     put:
       operationId: updateSplash
-      summary: Update Splash Screen
+      summary: Intralinks Update Splash Screen
       description: Updates the splash screen configuration for a workspace.
       tags:
         - Splash
@@ -681,7 +681,7 @@ paths:
   /workspaces/{workspaceId}/customfields:
     get:
       operationId: listCustomFields
-      summary: List Custom Fields
+      summary: Intralinks List Custom Fields
       description: Returns custom field definitions for a workspace.
       tags:
         - Custom Fields
