@@ -1,0 +1,105 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Intralinks API — Splash
+  description: 'Intralinks API — Splash. 2 operations. Lead operation: Intralinks Get Splash Screen. Self-contained Naftiko
+    capability covering one Intralinks business surface.'
+  tags:
+  - Intralinks
+  - Splash
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    INTRALINKS_API_KEY: INTRALINKS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: intralinks-splash
+    baseUri: https://api.intralinks.com/v2
+    description: Intralinks API — Splash business capability. Self-contained, no shared references.
+    resources:
+    - name: workspaces-workspaceId-splash
+      path: /workspaces/{workspaceId}/splash
+      operations:
+      - name: getsplash
+        method: GET
+        description: Intralinks Get Splash Screen
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatesplash
+        method: PUT
+        description: Intralinks Update Splash Screen
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.INTRALINKS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: intralinks-splash-rest
+    port: 8080
+    description: REST adapter for Intralinks API — Splash. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/workspaces/{workspaceid}/splash
+      name: workspaces-workspaceid-splash
+      description: REST surface for workspaces-workspaceId-splash.
+      operations:
+      - method: GET
+        name: getsplash
+        description: Intralinks Get Splash Screen
+        call: intralinks-splash.getsplash
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatesplash
+        description: Intralinks Update Splash Screen
+        call: intralinks-splash.updatesplash
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: intralinks-splash-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Intralinks API — Splash. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: intralinks-get-splash-screen
+      description: Intralinks Get Splash Screen
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: intralinks-splash.getsplash
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: intralinks-update-splash-screen
+      description: Intralinks Update Splash Screen
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: intralinks-splash.updatesplash
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

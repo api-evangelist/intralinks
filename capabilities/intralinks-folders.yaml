@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Intralinks API — Folders
+  description: 'Intralinks API — Folders. 5 operations. Lead operation: Intralinks List Folders. Self-contained Naftiko capability
+    covering one Intralinks business surface.'
+  tags:
+  - Intralinks
+  - Folders
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    INTRALINKS_API_KEY: INTRALINKS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: intralinks-folders
+    baseUri: https://api.intralinks.com/v2
+    description: Intralinks API — Folders business capability. Self-contained, no shared references.
+    resources:
+    - name: workspaces-workspaceId-folders
+      path: /workspaces/{workspaceId}/folders
+      operations:
+      - name: listfolders
+        method: GET
+        description: Intralinks List Folders
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createfolder
+        method: POST
+        description: Intralinks Create Folder
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: workspaces-workspaceId-folders-folderId
+      path: /workspaces/{workspaceId}/folders/{folderId}
+      operations:
+      - name: getfolder
+        method: GET
+        description: Intralinks Get Folder
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatefolder
+        method: PUT
+        description: Intralinks Update Folder
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletefolder
+        method: DELETE
+        description: Intralinks Delete Folder
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.INTRALINKS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: intralinks-folders-rest
+    port: 8080
+    description: REST adapter for Intralinks API — Folders. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/workspaces/{workspaceid}/folders
+      name: workspaces-workspaceid-folders
+      description: REST surface for workspaces-workspaceId-folders.
+      operations:
+      - method: GET
+        name: listfolders
+        description: Intralinks List Folders
+        call: intralinks-folders.listfolders
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createfolder
+        description: Intralinks Create Folder
+        call: intralinks-folders.createfolder
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workspaces/{workspaceid}/folders/{folderid}
+      name: workspaces-workspaceid-folders-folderid
+      description: REST surface for workspaces-workspaceId-folders-folderId.
+      operations:
+      - method: GET
+        name: getfolder
+        description: Intralinks Get Folder
+        call: intralinks-folders.getfolder
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatefolder
+        description: Intralinks Update Folder
+        call: intralinks-folders.updatefolder
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletefolder
+        description: Intralinks Delete Folder
+        call: intralinks-folders.deletefolder
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: intralinks-folders-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Intralinks API — Folders. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: intralinks-list-folders
+      description: Intralinks List Folders
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: intralinks-folders.listfolders
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: intralinks-create-folder
+      description: Intralinks Create Folder
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: intralinks-folders.createfolder
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: intralinks-get-folder
+      description: Intralinks Get Folder
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: intralinks-folders.getfolder
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: intralinks-update-folder
+      description: Intralinks Update Folder
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: intralinks-folders.updatefolder
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: intralinks-delete-folder
+      description: Intralinks Delete Folder
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: intralinks-folders.deletefolder
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,237 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Intralinks API — Documents
+  description: 'Intralinks API — Documents. 6 operations. Lead operation: Intralinks List Documents. Self-contained Naftiko
+    capability covering one Intralinks business surface.'
+  tags:
+  - Intralinks
+  - Documents
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    INTRALINKS_API_KEY: INTRALINKS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: intralinks-documents
+    baseUri: https://api.intralinks.com/v2
+    description: Intralinks API — Documents business capability. Self-contained, no shared references.
+    resources:
+    - name: workspaces-workspaceId-documents
+      path: /workspaces/{workspaceId}/documents
+      operations:
+      - name: listdocuments
+        method: GET
+        description: Intralinks List Documents
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: folderId
+          in: query
+          type: string
+      - name: uploaddocument
+        method: POST
+        description: Intralinks Upload Document
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: workspaces-workspaceId-documents-documentId
+      path: /workspaces/{workspaceId}/documents/{documentId}
+      operations:
+      - name: getdocument
+        method: GET
+        description: Intralinks Get Document
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatedocument
+        method: PUT
+        description: Intralinks Update Document
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletedocument
+        method: DELETE
+        description: Intralinks Delete Document
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: workspaces-workspaceId-documents-documentId-download
+      path: /workspaces/{workspaceId}/documents/{documentId}/download
+      operations:
+      - name: downloaddocument
+        method: GET
+        description: Intralinks Download Document
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.INTRALINKS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: intralinks-documents-rest
+    port: 8080
+    description: REST adapter for Intralinks API — Documents. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/workspaces/{workspaceid}/documents
+      name: workspaces-workspaceid-documents
+      description: REST surface for workspaces-workspaceId-documents.
+      operations:
+      - method: GET
+        name: listdocuments
+        description: Intralinks List Documents
+        call: intralinks-documents.listdocuments
+        with:
+          folderId: rest.folderId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: uploaddocument
+        description: Intralinks Upload Document
+        call: intralinks-documents.uploaddocument
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workspaces/{workspaceid}/documents/{documentid}
+      name: workspaces-workspaceid-documents-documentid
+      description: REST surface for workspaces-workspaceId-documents-documentId.
+      operations:
+      - method: GET
+        name: getdocument
+        description: Intralinks Get Document
+        call: intralinks-documents.getdocument
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatedocument
+        description: Intralinks Update Document
+        call: intralinks-documents.updatedocument
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletedocument
+        description: Intralinks Delete Document
+        call: intralinks-documents.deletedocument
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workspaces/{workspaceid}/documents/{documentid}/download
+      name: workspaces-workspaceid-documents-documentid-download
+      description: REST surface for workspaces-workspaceId-documents-documentId-download.
+      operations:
+      - method: GET
+        name: downloaddocument
+        description: Intralinks Download Document
+        call: intralinks-documents.downloaddocument
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: intralinks-documents-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Intralinks API — Documents. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: intralinks-list-documents
+      description: Intralinks List Documents
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: intralinks-documents.listdocuments
+      with:
+        folderId: tools.folderId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: intralinks-upload-document
+      description: Intralinks Upload Document
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: intralinks-documents.uploaddocument
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: intralinks-get-document
+      description: Intralinks Get Document
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: intralinks-documents.getdocument
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: intralinks-update-document
+      description: Intralinks Update Document
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: intralinks-documents.updatedocument
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: intralinks-delete-document
+      description: Intralinks Delete Document
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: intralinks-documents.deletedocument
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: intralinks-download-document
+      description: Intralinks Download Document
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: intralinks-documents.downloaddocument
+      outputParameters:
+      - type: object
+        mapping: $.
