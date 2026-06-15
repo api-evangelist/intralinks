@@ -1,0 +1,921 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Intralinks API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Intralinks Obtain OAuth Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.intralinks.com/v2/oauth/token",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "grant_type",
+                  "value": ""
+                },
+                {
+                  "name": "client_id",
+                  "value": ""
+                },
+                {
+                  "name": "client_secret",
+                  "value": ""
+                },
+                {
+                  "name": "code",
+                  "value": ""
+                },
+                {
+                  "name": "redirect_uri",
+                  "value": ""
+                },
+                {
+                  "name": "refresh_token",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Authenticates and returns an OAuth access token and refresh token. The access token is valid for 60 minutes and the refresh token for 30 days."
+        },
+        {
+          "info": {
+            "name": "Intralinks Revoke OAuth Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.intralinks.com/v2/oauth/revoke",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "token",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Revokes an access token or refresh token to log the user out."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Workspaces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Intralinks List Workspaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.intralinks.com/v2/workspaces",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of workspaces (exchanges / virtual data rooms) accessible to the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Intralinks Create Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.intralinks.com/v2/workspaces",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new workspace (exchange / virtual data room)."
+        },
+        {
+          "info": {
+            "name": "Intralinks Get Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns details for a specific workspace."
+        },
+        {
+          "info": {
+            "name": "Intralinks Update Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates an existing workspace."
+        },
+        {
+          "info": {
+            "name": "Intralinks Delete Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a workspace."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Folders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Intralinks List Folders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/folders",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns folders within a workspace."
+        },
+        {
+          "info": {
+            "name": "Intralinks Create Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/folders",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new folder in a workspace."
+        },
+        {
+          "info": {
+            "name": "Intralinks Get Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/folders/:folderId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              },
+              {
+                "name": "folderId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the folder."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns details for a specific folder."
+        },
+        {
+          "info": {
+            "name": "Intralinks Update Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/folders/:folderId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              },
+              {
+                "name": "folderId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the folder."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates an existing folder."
+        },
+        {
+          "info": {
+            "name": "Intralinks Delete Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/folders/:folderId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              },
+              {
+                "name": "folderId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the folder."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a folder from a workspace."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Intralinks List Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/documents",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              },
+              {
+                "name": "folderId",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns documents within a workspace, optionally filtered by folder."
+        },
+        {
+          "info": {
+            "name": "Intralinks Upload Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/documents",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "folderId",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "note",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Uploads a new document to a workspace."
+        },
+        {
+          "info": {
+            "name": "Intralinks Get Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/documents/:documentId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              },
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the document."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns metadata for a specific document."
+        },
+        {
+          "info": {
+            "name": "Intralinks Update Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/documents/:documentId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              },
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the document."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates document metadata."
+        },
+        {
+          "info": {
+            "name": "Intralinks Delete Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/documents/:documentId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              },
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the document."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a document from a workspace."
+        },
+        {
+          "info": {
+            "name": "Intralinks Download Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/documents/:documentId/download",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              },
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the document."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Downloads the file content of a document."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Intralinks List Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/groups",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns groups within a workspace."
+        },
+        {
+          "info": {
+            "name": "Intralinks Create Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/groups",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new group in a workspace."
+        },
+        {
+          "info": {
+            "name": "Intralinks Get Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/groups/:groupId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              },
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the group."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns details for a specific group."
+        },
+        {
+          "info": {
+            "name": "Intralinks Update Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/groups/:groupId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              },
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the group."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates an existing group."
+        },
+        {
+          "info": {
+            "name": "Intralinks Delete Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/groups/:groupId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              },
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the group."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a group from a workspace."
+        },
+        {
+          "info": {
+            "name": "Intralinks List Group Members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/groups/:groupId/members",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              },
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the group."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns members (users) belonging to a group."
+        },
+        {
+          "info": {
+            "name": "Intralinks Add Group Member",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/groups/:groupId/members",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              },
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the group."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Adds a user to a group."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Permissions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Intralinks List Permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/permissions",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns permission assignments for a workspace. Permissions are assigned at the group level and determine document visibility."
+        },
+        {
+          "info": {
+            "name": "Intralinks Create Permission",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/permissions",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Assigns a permission to a group for a folder or document."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Splash",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Intralinks Get Splash Screen",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/splash",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the splash screen configuration for a workspace, often used for NDA agreements or welcome messages."
+        },
+        {
+          "info": {
+            "name": "Intralinks Update Splash Screen",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/splash",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates the splash screen configuration for a workspace."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Custom Fields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Intralinks List Custom Fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/customfields",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns custom field definitions for a workspace."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
