@@ -45,6 +45,10 @@ type: Index
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 common:
+  - type: DomainSecurity
+    url: security/intralinks-domain-security.yml
+  - type: Authentication
+    url: authentication/intralinks-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/ssc-intralinks
   - url: https://developers.intralinks.com
