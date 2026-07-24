@@ -1,0 +1,167 @@
+openapi: 3.0.3
+info:
+  title: Intralinks Authentication Folders API
+  description: The Intralinks API provides RESTful access to the Intralinks virtual data room platform, enabling programmatic management of workspaces (exchanges), documents, folders, groups, users, permissions, splash screens, and custom fields. It supports secure document sharing, M&A due diligence workflows, and confidential business collaboration. Authentication is handled via OAuth 2.0 with authorization code and client credentials flows.
+  version: 2.0.0
+  contact:
+    name: Intralinks Developer Support
+    url: https://developers.intralinks.com
+  termsOfService: https://www.intralinks.com/terms-of-use
+servers:
+- url: https://api.intralinks.com/v2
+  description: Intralinks Production API
+tags:
+- name: Folders
+paths:
+  /workspaces/{workspaceId}/folders:
+    get:
+      operationId: listFolders
+      summary: Intralinks List Folders
+      description: Returns folders within a workspace.
+      tags:
+      - Folders
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      responses:
+        '200':
+          description: A list of folders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  folder:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Folder'
+    post:
+      operationId: createFolder
+      summary: Intralinks Create Folder
+      description: Creates a new folder in a workspace.
+      tags:
+      - Folders
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Folder'
+      responses:
+        '201':
+          description: Folder created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+  /workspaces/{workspaceId}/folders/{folderId}:
+    get:
+      operationId: getFolder
+      summary: Intralinks Get Folder
+      description: Returns details for a specific folder.
+      tags:
+      - Folders
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      - $ref: '#/components/parameters/folderId'
+      responses:
+        '200':
+          description: Folder details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+    put:
+      operationId: updateFolder
+      summary: Intralinks Update Folder
+      description: Updates an existing folder.
+      tags:
+      - Folders
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      - $ref: '#/components/parameters/folderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Folder'
+      responses:
+        '200':
+          description: Folder updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+    delete:
+      operationId: deleteFolder
+      summary: Intralinks Delete Folder
+      description: Deletes a folder from a workspace.
+      tags:
+      - Folders
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      - $ref: '#/components/parameters/folderId'
+      responses:
+        '204':
+          description: Folder deleted
+components:
+  parameters:
+    folderId:
+      name: folderId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the folder.
+    workspaceId:
+      name: workspaceId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the workspace.
+  schemas:
+    Folder:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the folder.
+        name:
+          type: string
+          description: Folder name.
+        parentId:
+          type: string
+          description: ID of the parent folder.
+        indexNumber:
+          type: string
+          description: Index number for folder ordering.
+        hasChildFolders:
+          type: boolean
+          description: Whether the folder contains subfolders.
+        version:
+          type: integer
+          description: Version number of the folder.
+        createdOn:
+          type: string
+          format: date-time
+        updatedOn:
+          type: string
+          format: date-time
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer token obtained from the /oauth/token endpoint. Pass the token in the Authorization header as 'Bearer {token}'.

@@ -1,0 +1,86 @@
+openapi: 3.0.3
+info:
+  title: Intralinks Authentication Splash API
+  description: The Intralinks API provides RESTful access to the Intralinks virtual data room platform, enabling programmatic management of workspaces (exchanges), documents, folders, groups, users, permissions, splash screens, and custom fields. It supports secure document sharing, M&A due diligence workflows, and confidential business collaboration. Authentication is handled via OAuth 2.0 with authorization code and client credentials flows.
+  version: 2.0.0
+  contact:
+    name: Intralinks Developer Support
+    url: https://developers.intralinks.com
+  termsOfService: https://www.intralinks.com/terms-of-use
+servers:
+- url: https://api.intralinks.com/v2
+  description: Intralinks Production API
+tags:
+- name: Splash
+paths:
+  /workspaces/{workspaceId}/splash:
+    get:
+      operationId: getSplash
+      summary: Intralinks Get Splash Screen
+      description: Returns the splash screen configuration for a workspace, often used for NDA agreements or welcome messages.
+      tags:
+      - Splash
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      responses:
+        '200':
+          description: Splash screen details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Splash'
+    put:
+      operationId: updateSplash
+      summary: Intralinks Update Splash Screen
+      description: Updates the splash screen configuration for a workspace.
+      tags:
+      - Splash
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Splash'
+      responses:
+        '200':
+          description: Splash updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Splash'
+components:
+  parameters:
+    workspaceId:
+      name: workspaceId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the workspace.
+  schemas:
+    Splash:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the splash screen.
+        hasAcceptButton:
+          type: boolean
+          description: Whether the splash screen requires acceptance.
+        splashText:
+          type: string
+          description: Text content of the splash screen.
+        hasImage:
+          type: boolean
+          description: Whether the splash screen includes an image.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer token obtained from the /oauth/token endpoint. Pass the token in the Authorization header as 'Bearer {token}'.

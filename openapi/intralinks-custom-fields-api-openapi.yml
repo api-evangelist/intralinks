@@ -1,0 +1,77 @@
+openapi: 3.0.3
+info:
+  title: Intralinks Authentication Custom Fields API
+  description: The Intralinks API provides RESTful access to the Intralinks virtual data room platform, enabling programmatic management of workspaces (exchanges), documents, folders, groups, users, permissions, splash screens, and custom fields. It supports secure document sharing, M&A due diligence workflows, and confidential business collaboration. Authentication is handled via OAuth 2.0 with authorization code and client credentials flows.
+  version: 2.0.0
+  contact:
+    name: Intralinks Developer Support
+    url: https://developers.intralinks.com
+  termsOfService: https://www.intralinks.com/terms-of-use
+servers:
+- url: https://api.intralinks.com/v2
+  description: Intralinks Production API
+tags:
+- name: Custom Fields
+paths:
+  /workspaces/{workspaceId}/customfields:
+    get:
+      operationId: listCustomFields
+      summary: Intralinks List Custom Fields
+      description: Returns custom field definitions for a workspace.
+      tags:
+      - Custom Fields
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      responses:
+        '200':
+          description: A list of custom fields
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  customField:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CustomField'
+components:
+  parameters:
+    workspaceId:
+      name: workspaceId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the workspace.
+  schemas:
+    CustomField:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the custom field.
+        name:
+          type: string
+          description: Custom field name.
+        type:
+          type: string
+          enum:
+          - TEXT
+          - DATE
+          - SELECT
+          description: Custom field data type.
+        isRequired:
+          type: boolean
+          description: Whether the field is mandatory.
+        options:
+          type: array
+          items:
+            type: string
+          description: Available options for SELECT type fields.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer token obtained from the /oauth/token endpoint. Pass the token in the Authorization header as 'Bearer {token}'.

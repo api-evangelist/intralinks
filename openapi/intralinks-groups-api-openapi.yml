@@ -1,0 +1,239 @@
+openapi: 3.0.3
+info:
+  title: Intralinks Authentication Groups API
+  description: The Intralinks API provides RESTful access to the Intralinks virtual data room platform, enabling programmatic management of workspaces (exchanges), documents, folders, groups, users, permissions, splash screens, and custom fields. It supports secure document sharing, M&A due diligence workflows, and confidential business collaboration. Authentication is handled via OAuth 2.0 with authorization code and client credentials flows.
+  version: 2.0.0
+  contact:
+    name: Intralinks Developer Support
+    url: https://developers.intralinks.com
+  termsOfService: https://www.intralinks.com/terms-of-use
+servers:
+- url: https://api.intralinks.com/v2
+  description: Intralinks Production API
+tags:
+- name: Groups
+paths:
+  /workspaces/{workspaceId}/groups:
+    get:
+      operationId: listGroups
+      summary: Intralinks List Groups
+      description: Returns groups within a workspace.
+      tags:
+      - Groups
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      responses:
+        '200':
+          description: A list of groups
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  group:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Group'
+    post:
+      operationId: createGroup
+      summary: Intralinks Create Group
+      description: Creates a new group in a workspace.
+      tags:
+      - Groups
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Group'
+      responses:
+        '201':
+          description: Group created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+  /workspaces/{workspaceId}/groups/{groupId}:
+    get:
+      operationId: getGroup
+      summary: Intralinks Get Group
+      description: Returns details for a specific group.
+      tags:
+      - Groups
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      - $ref: '#/components/parameters/groupId'
+      responses:
+        '200':
+          description: Group details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+    put:
+      operationId: updateGroup
+      summary: Intralinks Update Group
+      description: Updates an existing group.
+      tags:
+      - Groups
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      - $ref: '#/components/parameters/groupId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Group'
+      responses:
+        '200':
+          description: Group updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+    delete:
+      operationId: deleteGroup
+      summary: Intralinks Delete Group
+      description: Deletes a group from a workspace.
+      tags:
+      - Groups
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      - $ref: '#/components/parameters/groupId'
+      responses:
+        '204':
+          description: Group deleted
+  /workspaces/{workspaceId}/groups/{groupId}/members:
+    get:
+      operationId: listGroupMembers
+      summary: Intralinks List Group Members
+      description: Returns members (users) belonging to a group.
+      tags:
+      - Groups
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      - $ref: '#/components/parameters/groupId'
+      responses:
+        '200':
+          description: A list of group members
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+    post:
+      operationId: addGroupMember
+      summary: Intralinks Add Group Member
+      description: Adds a user to a group.
+      tags:
+      - Groups
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      - $ref: '#/components/parameters/groupId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Member added to group
+components:
+  parameters:
+    workspaceId:
+      name: workspaceId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the workspace.
+    groupId:
+      name: groupId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the group.
+  schemas:
+    Group:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the group.
+        name:
+          type: string
+          description: Group name.
+        type:
+          type: string
+          description: Group type.
+        note:
+          type: string
+          description: Group description or note.
+        memberCount:
+          type: integer
+          description: Number of members in the group.
+        foldersWithAccess:
+          type: integer
+          description: Number of folders accessible to this group.
+        createdOn:
+          type: string
+          format: date-time
+        updatedOn:
+          type: string
+          format: date-time
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the user.
+        firstName:
+          type: string
+          description: First name.
+        lastName:
+          type: string
+          description: Last name.
+        emailId:
+          type: string
+          format: email
+          description: Email address.
+        organization:
+          type: string
+          description: Organization name.
+        roleType:
+          type: string
+          description: Role assigned to the user in the workspace.
+        lastAccessedOn:
+          type: string
+          format: date-time
+        createdOn:
+          type: string
+          format: date-time
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer token obtained from the /oauth/token endpoint. Pass the token in the Authorization header as 'Bearer {token}'.

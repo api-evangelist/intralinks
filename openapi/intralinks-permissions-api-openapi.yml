@@ -1,0 +1,95 @@
+openapi: 3.0.3
+info:
+  title: Intralinks Authentication Permissions API
+  description: The Intralinks API provides RESTful access to the Intralinks virtual data room platform, enabling programmatic management of workspaces (exchanges), documents, folders, groups, users, permissions, splash screens, and custom fields. It supports secure document sharing, M&A due diligence workflows, and confidential business collaboration. Authentication is handled via OAuth 2.0 with authorization code and client credentials flows.
+  version: 2.0.0
+  contact:
+    name: Intralinks Developer Support
+    url: https://developers.intralinks.com
+  termsOfService: https://www.intralinks.com/terms-of-use
+servers:
+- url: https://api.intralinks.com/v2
+  description: Intralinks Production API
+tags:
+- name: Permissions
+paths:
+  /workspaces/{workspaceId}/permissions:
+    get:
+      operationId: listPermissions
+      summary: Intralinks List Permissions
+      description: Returns permission assignments for a workspace. Permissions are assigned at the group level and determine document visibility.
+      tags:
+      - Permissions
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      responses:
+        '200':
+          description: A list of permissions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  permission:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Permission'
+    post:
+      operationId: createPermission
+      summary: Intralinks Create Permission
+      description: Assigns a permission to a group for a folder or document.
+      tags:
+      - Permissions
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Permission'
+      responses:
+        '201':
+          description: Permission created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Permission'
+components:
+  schemas:
+    Permission:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the permission.
+        groupId:
+          type: string
+          description: ID of the group this permission is assigned to.
+        folderId:
+          type: string
+          description: ID of the folder this permission applies to.
+        permission:
+          type: string
+          enum:
+          - SEE
+          - SEE_AND_DOWNLOAD
+          - SEE_DOWNLOAD_AND_PRINT
+          description: Permission level granted.
+  parameters:
+    workspaceId:
+      name: workspaceId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the workspace.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer token obtained from the /oauth/token endpoint. Pass the token in the Authorization header as 'Bearer {token}'.

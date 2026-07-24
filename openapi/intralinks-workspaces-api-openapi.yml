@@ -1,0 +1,181 @@
+openapi: 3.0.3
+info:
+  title: Intralinks Authentication Workspaces API
+  description: The Intralinks API provides RESTful access to the Intralinks virtual data room platform, enabling programmatic management of workspaces (exchanges), documents, folders, groups, users, permissions, splash screens, and custom fields. It supports secure document sharing, M&A due diligence workflows, and confidential business collaboration. Authentication is handled via OAuth 2.0 with authorization code and client credentials flows.
+  version: 2.0.0
+  contact:
+    name: Intralinks Developer Support
+    url: https://developers.intralinks.com
+  termsOfService: https://www.intralinks.com/terms-of-use
+servers:
+- url: https://api.intralinks.com/v2
+  description: Intralinks Production API
+tags:
+- name: Workspaces
+paths:
+  /workspaces:
+    get:
+      operationId: listWorkspaces
+      summary: Intralinks List Workspaces
+      description: Returns a list of workspaces (exchanges / virtual data rooms) accessible to the authenticated user.
+      tags:
+      - Workspaces
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: type
+        in: query
+        schema:
+          type: string
+      - name: offset
+        in: query
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: A list of workspaces
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  workspace:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Workspace'
+    post:
+      operationId: createWorkspace
+      summary: Intralinks Create Workspace
+      description: Creates a new workspace (exchange / virtual data room).
+      tags:
+      - Workspaces
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Workspace'
+      responses:
+        '201':
+          description: Workspace created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+  /workspaces/{workspaceId}:
+    get:
+      operationId: getWorkspace
+      summary: Intralinks Get Workspace
+      description: Returns details for a specific workspace.
+      tags:
+      - Workspaces
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      responses:
+        '200':
+          description: Workspace details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+        '404':
+          description: Workspace not found
+    put:
+      operationId: updateWorkspace
+      summary: Intralinks Update Workspace
+      description: Updates an existing workspace.
+      tags:
+      - Workspaces
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Workspace'
+      responses:
+        '200':
+          description: Workspace updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+    delete:
+      operationId: deleteWorkspace
+      summary: Intralinks Delete Workspace
+      description: Deletes a workspace.
+      tags:
+      - Workspaces
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      responses:
+        '204':
+          description: Workspace deleted
+components:
+  parameters:
+    workspaceId:
+      name: workspaceId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the workspace.
+  schemas:
+    Workspace:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the workspace.
+        name:
+          type: string
+          description: Name of the workspace.
+        type:
+          type: string
+          description: Type of workspace (e.g., ATC, ILP).
+        phase:
+          type: string
+          description: Current phase of the workspace.
+        status:
+          type: string
+          description: Status of the workspace.
+        host:
+          type: string
+          description: Host organization name.
+        createdOn:
+          type: string
+          format: date-time
+          description: Workspace creation timestamp.
+        updatedOn:
+          type: string
+          format: date-time
+          description: Last modification timestamp.
+        statistics:
+          type: object
+          properties:
+            documentCount:
+              type: integer
+            folderCount:
+              type: integer
+            userCount:
+              type: integer
+            groupCount:
+              type: integer
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer token obtained from the /oauth/token endpoint. Pass the token in the Authorization header as 'Bearer {token}'.

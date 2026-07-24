@@ -1,0 +1,214 @@
+openapi: 3.0.3
+info:
+  title: Intralinks Authentication Documents API
+  description: The Intralinks API provides RESTful access to the Intralinks virtual data room platform, enabling programmatic management of workspaces (exchanges), documents, folders, groups, users, permissions, splash screens, and custom fields. It supports secure document sharing, M&A due diligence workflows, and confidential business collaboration. Authentication is handled via OAuth 2.0 with authorization code and client credentials flows.
+  version: 2.0.0
+  contact:
+    name: Intralinks Developer Support
+    url: https://developers.intralinks.com
+  termsOfService: https://www.intralinks.com/terms-of-use
+servers:
+- url: https://api.intralinks.com/v2
+  description: Intralinks Production API
+tags:
+- name: Documents
+paths:
+  /workspaces/{workspaceId}/documents:
+    get:
+      operationId: listDocuments
+      summary: Intralinks List Documents
+      description: Returns documents within a workspace, optionally filtered by folder.
+      tags:
+      - Documents
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      - name: folderId
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A list of documents
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  document:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Document'
+    post:
+      operationId: uploadDocument
+      summary: Intralinks Upload Document
+      description: Uploads a new document to a workspace.
+      tags:
+      - Documents
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                folderId:
+                  type: string
+                name:
+                  type: string
+                note:
+                  type: string
+              required:
+              - file
+              - folderId
+      responses:
+        '201':
+          description: Document uploaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+  /workspaces/{workspaceId}/documents/{documentId}:
+    get:
+      operationId: getDocument
+      summary: Intralinks Get Document
+      description: Returns metadata for a specific document.
+      tags:
+      - Documents
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      - $ref: '#/components/parameters/documentId'
+      responses:
+        '200':
+          description: Document details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+    put:
+      operationId: updateDocument
+      summary: Intralinks Update Document
+      description: Updates document metadata.
+      tags:
+      - Documents
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      - $ref: '#/components/parameters/documentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Document'
+      responses:
+        '200':
+          description: Document updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+    delete:
+      operationId: deleteDocument
+      summary: Intralinks Delete Document
+      description: Deletes a document from a workspace.
+      tags:
+      - Documents
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      - $ref: '#/components/parameters/documentId'
+      responses:
+        '204':
+          description: Document deleted
+  /workspaces/{workspaceId}/documents/{documentId}/download:
+    get:
+      operationId: downloadDocument
+      summary: Intralinks Download Document
+      description: Downloads the file content of a document.
+      tags:
+      - Documents
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/workspaceId'
+      - $ref: '#/components/parameters/documentId'
+      responses:
+        '200':
+          description: Document file content
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+components:
+  schemas:
+    Document:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the document.
+        name:
+          type: string
+          description: Document name.
+        folderId:
+          type: string
+          description: ID of the containing folder.
+        fileSize:
+          type: integer
+          format: int64
+          description: File size in bytes.
+        extension:
+          type: string
+          description: File extension.
+        version:
+          type: integer
+          description: Version number.
+        note:
+          type: string
+          description: Document note or description.
+        createdBy:
+          type: string
+          description: User who created the document.
+        createdOn:
+          type: string
+          format: date-time
+        updatedOn:
+          type: string
+          format: date-time
+        lastAccessedOn:
+          type: string
+          format: date-time
+  parameters:
+    documentId:
+      name: documentId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the document.
+    workspaceId:
+      name: workspaceId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the workspace.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer token obtained from the /oauth/token endpoint. Pass the token in the Authorization header as 'Bearer {token}'.
