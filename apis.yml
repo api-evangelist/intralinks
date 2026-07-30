@@ -1,48 +1,258 @@
 aid: intralinks
 url: https://raw.githubusercontent.com/api-evangelist/intralinks/refs/heads/main/apis.yml
 apis:
-  - aid: intralinks:api
-    name: Intralinks API
-    tags:
-      - Document Management
-      - Secure File Sharing
-      - Virtual Data Room
-    humanURL: https://developers.intralinks.com
-    properties:
-      - url: https://developers.intralinks.com/swagger/
-        type: Documentation
-      - url: openapi/intralinks-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/workspace.json
-        type: JSONSchema
-      - url: json-schema/document.json
-        type: JSONSchema
-      - url: json-schema/folder.json
-        type: JSONSchema
-      - url: json-schema/group.json
-        type: JSONSchema
-      - url: json-schema/user.json
-        type: JSONSchema
-      - url: json-schema/permission.json
-        type: JSONSchema
-      - url: json-schema/splash.json
-        type: JSONSchema
-      - url: json-schema/custom-field.json
-        type: JSONSchema
-      - url: json-ld/intralinks-context.jsonld
-        type: JSONLD
-    description: >-
-      The Intralinks API provides RESTful access to the Intralinks virtual data room platform, enabling programmatic
-      management of workspaces (exchanges), documents, folders, groups, users, permissions, splash screens, and custom
-      fields. Authentication uses OAuth 2.0 with authorization code and client credentials flows. The API supports
-      secure document sharing, M&A due diligence workflows, and confidential business collaboration.
+- aid: intralinks:intralinks-authentication-api
+  name: Intralinks Authentication API
+  description: The Authentication API from Intralinks — 2 operation(s) for authentication.
+  humanURL: https://developers.intralinks.com
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/intralinks-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://developers.intralinks.com/swagger/
+  - type: JSONSchema
+    url: json-schema/workspace.json
+  - type: JSONSchema
+    url: json-schema/document.json
+  - type: JSONSchema
+    url: json-schema/folder.json
+  - type: JSONSchema
+    url: json-schema/group.json
+  - type: JSONSchema
+    url: json-schema/user.json
+  - type: JSONSchema
+    url: json-schema/permission.json
+  - type: JSONSchema
+    url: json-schema/splash.json
+  - type: JSONSchema
+    url: json-schema/custom-field.json
+  - type: JSONLD
+    url: json-ld/intralinks-context.jsonld
+- aid: intralinks:intralinks-custom-fields-api
+  name: Intralinks Custom Fields API
+  description: The Custom Fields API from Intralinks — 1 operation(s) for custom fields.
+  humanURL: https://developers.intralinks.com
+  tags:
+  - Custom Fields
+  properties:
+  - type: OpenAPI
+    url: openapi/intralinks-custom-fields-api-openapi.yml
+  - type: Documentation
+    url: https://developers.intralinks.com/swagger/
+  - type: JSONSchema
+    url: json-schema/workspace.json
+  - type: JSONSchema
+    url: json-schema/document.json
+  - type: JSONSchema
+    url: json-schema/folder.json
+  - type: JSONSchema
+    url: json-schema/group.json
+  - type: JSONSchema
+    url: json-schema/user.json
+  - type: JSONSchema
+    url: json-schema/permission.json
+  - type: JSONSchema
+    url: json-schema/splash.json
+  - type: JSONSchema
+    url: json-schema/custom-field.json
+  - type: JSONLD
+    url: json-ld/intralinks-context.jsonld
+- aid: intralinks:intralinks-documents-api
+  name: Intralinks Documents API
+  description: The Documents API from Intralinks — 3 operation(s) for documents.
+  humanURL: https://developers.intralinks.com
+  tags:
+  - Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/intralinks-documents-api-openapi.yml
+  - type: Documentation
+    url: https://developers.intralinks.com/swagger/
+  - type: JSONSchema
+    url: json-schema/workspace.json
+  - type: JSONSchema
+    url: json-schema/document.json
+  - type: JSONSchema
+    url: json-schema/folder.json
+  - type: JSONSchema
+    url: json-schema/group.json
+  - type: JSONSchema
+    url: json-schema/user.json
+  - type: JSONSchema
+    url: json-schema/permission.json
+  - type: JSONSchema
+    url: json-schema/splash.json
+  - type: JSONSchema
+    url: json-schema/custom-field.json
+  - type: JSONLD
+    url: json-ld/intralinks-context.jsonld
+- aid: intralinks:intralinks-folders-api
+  name: Intralinks Folders API
+  description: The Folders API from Intralinks — 2 operation(s) for folders.
+  humanURL: https://developers.intralinks.com
+  tags:
+  - Folders
+  properties:
+  - type: OpenAPI
+    url: openapi/intralinks-folders-api-openapi.yml
+  - type: Documentation
+    url: https://developers.intralinks.com/swagger/
+  - type: JSONSchema
+    url: json-schema/workspace.json
+  - type: JSONSchema
+    url: json-schema/document.json
+  - type: JSONSchema
+    url: json-schema/folder.json
+  - type: JSONSchema
+    url: json-schema/group.json
+  - type: JSONSchema
+    url: json-schema/user.json
+  - type: JSONSchema
+    url: json-schema/permission.json
+  - type: JSONSchema
+    url: json-schema/splash.json
+  - type: JSONSchema
+    url: json-schema/custom-field.json
+  - type: JSONLD
+    url: json-ld/intralinks-context.jsonld
+- aid: intralinks:intralinks-groups-api
+  name: Intralinks Groups API
+  description: The Groups API from Intralinks — 3 operation(s) for groups.
+  humanURL: https://developers.intralinks.com
+  tags:
+  - Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/intralinks-groups-api-openapi.yml
+  - type: Documentation
+    url: https://developers.intralinks.com/swagger/
+  - type: JSONSchema
+    url: json-schema/workspace.json
+  - type: JSONSchema
+    url: json-schema/document.json
+  - type: JSONSchema
+    url: json-schema/folder.json
+  - type: JSONSchema
+    url: json-schema/group.json
+  - type: JSONSchema
+    url: json-schema/user.json
+  - type: JSONSchema
+    url: json-schema/permission.json
+  - type: JSONSchema
+    url: json-schema/splash.json
+  - type: JSONSchema
+    url: json-schema/custom-field.json
+  - type: JSONLD
+    url: json-ld/intralinks-context.jsonld
+- aid: intralinks:intralinks-permissions-api
+  name: Intralinks Permissions API
+  description: The Permissions API from Intralinks — 1 operation(s) for permissions.
+  humanURL: https://developers.intralinks.com
+  tags:
+  - Permissions
+  properties:
+  - type: OpenAPI
+    url: openapi/intralinks-permissions-api-openapi.yml
+  - type: Documentation
+    url: https://developers.intralinks.com/swagger/
+  - type: JSONSchema
+    url: json-schema/workspace.json
+  - type: JSONSchema
+    url: json-schema/document.json
+  - type: JSONSchema
+    url: json-schema/folder.json
+  - type: JSONSchema
+    url: json-schema/group.json
+  - type: JSONSchema
+    url: json-schema/user.json
+  - type: JSONSchema
+    url: json-schema/permission.json
+  - type: JSONSchema
+    url: json-schema/splash.json
+  - type: JSONSchema
+    url: json-schema/custom-field.json
+  - type: JSONLD
+    url: json-ld/intralinks-context.jsonld
+- aid: intralinks:intralinks-splash-api
+  name: Intralinks Splash API
+  description: The Splash API from Intralinks — 1 operation(s) for splash.
+  humanURL: https://developers.intralinks.com
+  tags:
+  - Splash
+  properties:
+  - type: OpenAPI
+    url: openapi/intralinks-splash-api-openapi.yml
+  - type: Documentation
+    url: https://developers.intralinks.com/swagger/
+  - type: JSONSchema
+    url: json-schema/workspace.json
+  - type: JSONSchema
+    url: json-schema/document.json
+  - type: JSONSchema
+    url: json-schema/folder.json
+  - type: JSONSchema
+    url: json-schema/group.json
+  - type: JSONSchema
+    url: json-schema/user.json
+  - type: JSONSchema
+    url: json-schema/permission.json
+  - type: JSONSchema
+    url: json-schema/splash.json
+  - type: JSONSchema
+    url: json-schema/custom-field.json
+  - type: JSONLD
+    url: json-ld/intralinks-context.jsonld
+- aid: intralinks:intralinks-workspaces-api
+  name: Intralinks Workspaces API
+  description: The Workspaces API from Intralinks — 2 operation(s) for workspaces.
+  humanURL: https://developers.intralinks.com
+  tags:
+  - Workspaces
+  properties:
+  - type: OpenAPI
+    url: openapi/intralinks-workspaces-api-openapi.yml
+  - type: Documentation
+    url: https://developers.intralinks.com/swagger/
+  - type: JSONSchema
+    url: json-schema/workspace.json
+  - type: JSONSchema
+    url: json-schema/document.json
+  - type: JSONSchema
+    url: json-schema/folder.json
+  - type: JSONSchema
+    url: json-schema/group.json
+  - type: JSONSchema
+    url: json-schema/user.json
+  - type: JSONSchema
+    url: json-schema/permission.json
+  - type: JSONSchema
+    url: json-schema/splash.json
+  - type: JSONSchema
+    url: json-schema/custom-field.json
+  - type: JSONLD
+    url: json-ld/intralinks-context.jsonld
 name: Intralinks
 tags:
   - Document Management
   - Secure File Sharing
   - Virtual Data Room
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/intralinks.png
 access: 3rd-Party
 common:
   - type: AgenticAccess
