@@ -1,0 +1,28 @@
+{
+  "provider": "intralinks",
+  "sources": [
+    "intralinks-authentication-api-openapi.yml",
+    "intralinks-custom-fields-api-openapi.yml",
+    "intralinks-documents-api-openapi.yml",
+    "intralinks-folders-api-openapi.yml",
+    "intralinks-groups-api-openapi.yml",
+    "intralinks-permissions-api-openapi.yml",
+    "intralinks-splash-api-openapi.yml",
+    "intralinks-workspaces-api-openapi.yml"
+  ],
+  "outputs": [
+    "intralinks-authentication-api-openapi.yml",
+    "intralinks-custom-fields-api-openapi.yml",
+    "intralinks-documents-api-openapi.yml",
+    "intralinks-folders-api-openapi.yml",
+    "intralinks-groups-api-openapi.yml",
+    "intralinks-permissions-api-openapi.yml",
+    "intralinks-splash-api-openapi.yml",
+    "intralinks-workspaces-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
