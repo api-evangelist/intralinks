@@ -1,0 +1,159 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Intralinks Authentication Folders API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Folders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Intralinks List Folders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/folders",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns folders within a workspace."
+        },
+        {
+          "info": {
+            "name": "Intralinks Create Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/folders",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new folder in a workspace."
+        },
+        {
+          "info": {
+            "name": "Intralinks Get Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/folders/:folderId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              },
+              {
+                "name": "folderId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the folder."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns details for a specific folder."
+        },
+        {
+          "info": {
+            "name": "Intralinks Update Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/folders/:folderId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              },
+              {
+                "name": "folderId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the folder."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates an existing folder."
+        },
+        {
+          "info": {
+            "name": "Intralinks Delete Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/folders/:folderId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              },
+              {
+                "name": "folderId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the folder."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a folder from a workspace."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

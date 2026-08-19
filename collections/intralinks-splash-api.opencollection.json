@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Intralinks Authentication Splash API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Splash",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Intralinks Get Splash Screen",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/splash",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the splash screen configuration for a workspace, often used for NDA agreements or welcome messages."
+        },
+        {
+          "info": {
+            "name": "Intralinks Update Splash Screen",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.intralinks.com/v2/workspaces/:workspaceId/splash",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates the splash screen configuration for a workspace."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
