@@ -122,6 +122,8 @@ apis:
   description: The Groups API from Intralinks — 3 operation(s) for groups.
   humanURL: https://developers.intralinks.com
   tags:
+  - Group
+  tags_raw:
   - Groups
   properties:
   - type: OpenAPI
@@ -235,6 +237,10 @@ apis:
     url: json-ld/intralinks-context.jsonld
 name: Intralinks
 tags:
+  - Document-Management
+  - Secure File Sharing
+  - Virtual Data Room
+tags_raw:
   - Document Management
   - Secure File Sharing
   - Virtual Data Room
