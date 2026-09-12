@@ -273,6 +273,8 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/intralinks.png
 access: 3rd-Party
 common:
+  - type: Website
+    url: https://www.intralinks.com/
   - type: CapabilityMap
     url: capabilities/intralinks-capability-edges.yml
     name: Intralinks Business Capability Map
