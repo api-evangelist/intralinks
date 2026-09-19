@@ -211,6 +211,8 @@ apis:
   description: The Workspaces API from Intralinks — 2 operation(s) for workspaces.
   humanURL: https://developers.intralinks.com
   tags:
+  - Workspace
+  tags_raw:
   - Workspaces
   properties:
   - type: OpenAPI
