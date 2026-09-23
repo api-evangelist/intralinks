@@ -1,14 +1,7 @@
 {
   "provider": "intralinks",
   "sources": [
-    "intralinks-authentication-api-openapi.yml",
-    "intralinks-custom-fields-api-openapi.yml",
-    "intralinks-documents-api-openapi.yml",
-    "intralinks-folders-api-openapi.yml",
-    "intralinks-groups-api-openapi.yml",
-    "intralinks-permissions-api-openapi.yml",
-    "intralinks-splash-api-openapi.yml",
-    "intralinks-workspaces-api-openapi.yml"
+    "_original/intralinks-api-openapi.yml"
   ],
   "outputs": [
     "intralinks-authentication-api-openapi.yml",
@@ -23,6 +16,19 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "intralinks-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "intralinks-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "intralinks-custom-fields-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "intralinks-documents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "intralinks-folders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "intralinks-groups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "intralinks-permissions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "intralinks-splash-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "intralinks-workspaces-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

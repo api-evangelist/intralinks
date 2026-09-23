@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Intralinks Authentication Groups API
+  title: Intralinks Groups API
   description: The Intralinks API provides RESTful access to the Intralinks virtual data room platform, enabling programmatic management of workspaces (exchanges), documents, folders, groups, users, permissions, splash screens, and custom fields. It supports secure document sharing, M&A due diligence workflows, and confidential business collaboration. Authentication is handled via OAuth 2.0 with authorization code and client credentials flows.
   version: 2.0.0
   contact:
@@ -162,13 +162,6 @@ paths:
           description: Member added to group
 components:
   parameters:
-    workspaceId:
-      name: workspaceId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The unique identifier of the workspace.
     groupId:
       name: groupId
       in: path
@@ -176,34 +169,14 @@ components:
       schema:
         type: string
       description: The unique identifier of the group.
+    workspaceId:
+      name: workspaceId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the workspace.
   schemas:
-    Group:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the group.
-        name:
-          type: string
-          description: Group name.
-        type:
-          type: string
-          description: Group type.
-        note:
-          type: string
-          description: Group description or note.
-        memberCount:
-          type: integer
-          description: Number of members in the group.
-        foldersWithAccess:
-          type: integer
-          description: Number of folders accessible to this group.
-        createdOn:
-          type: string
-          format: date-time
-        updatedOn:
-          type: string
-          format: date-time
     User:
       type: object
       properties:
@@ -230,6 +203,33 @@ components:
           type: string
           format: date-time
         createdOn:
+          type: string
+          format: date-time
+    Group:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the group.
+        name:
+          type: string
+          description: Group name.
+        type:
+          type: string
+          description: Group type.
+        note:
+          type: string
+          description: Group description or note.
+        memberCount:
+          type: integer
+          description: Number of members in the group.
+        foldersWithAccess:
+          type: integer
+          description: Number of folders accessible to this group.
+        createdOn:
+          type: string
+          format: date-time
+        updatedOn:
           type: string
           format: date-time
   securitySchemes:

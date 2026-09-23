@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Intralinks Authentication Splash API
+  title: Intralinks Splash API
   description: The Intralinks API provides RESTful access to the Intralinks virtual data room platform, enabling programmatic management of workspaces (exchanges), documents, folders, groups, users, permissions, splash screens, and custom fields. It supports secure document sharing, M&A due diligence workflows, and confidential business collaboration. Authentication is handled via OAuth 2.0 with authorization code and client credentials flows.
   version: 2.0.0
   contact:
@@ -55,14 +55,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Splash'
 components:
-  parameters:
-    workspaceId:
-      name: workspaceId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The unique identifier of the workspace.
   schemas:
     Splash:
       type: object
@@ -79,6 +71,14 @@ components:
         hasImage:
           type: boolean
           description: Whether the splash screen includes an image.
+  parameters:
+    workspaceId:
+      name: workspaceId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the workspace.
   securitySchemes:
     bearerAuth:
       type: http
