@@ -239,13 +239,14 @@ apis:
     url: json-ld/intralinks-context.jsonld
 name: Intralinks
 tags:
-  - Document-Management
+  - Document Management
   - Secure File Sharing
   - Virtual Data Room
 tags_raw:
   - Document Management
   - Secure File Sharing
   - Virtual Data Room
+  - Document-Management
 type: Index
 deliveryModel:
   model: unknown

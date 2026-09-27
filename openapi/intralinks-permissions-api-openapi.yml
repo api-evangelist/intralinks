@@ -60,6 +60,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/Permission'
 components:
+  parameters:
+    workspaceId:
+      name: workspaceId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the workspace.
   schemas:
     Permission:
       type: object
@@ -80,14 +88,6 @@ components:
           - SEE_AND_DOWNLOAD
           - SEE_DOWNLOAD_AND_PRINT
           description: Permission level granted.
-  parameters:
-    workspaceId:
-      name: workspaceId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The unique identifier of the workspace.
   securitySchemes:
     bearerAuth:
       type: http

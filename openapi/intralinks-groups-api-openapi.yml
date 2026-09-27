@@ -161,21 +161,6 @@ paths:
         '201':
           description: Member added to group
 components:
-  parameters:
-    groupId:
-      name: groupId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The unique identifier of the group.
-    workspaceId:
-      name: workspaceId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The unique identifier of the workspace.
   schemas:
     User:
       type: object
@@ -232,6 +217,21 @@ components:
         updatedOn:
           type: string
           format: date-time
+  parameters:
+    workspaceId:
+      name: workspaceId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the workspace.
+    groupId:
+      name: groupId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the group.
   securitySchemes:
     bearerAuth:
       type: http
