@@ -193,13 +193,6 @@ components:
           type: string
           format: date-time
   parameters:
-    workspaceId:
-      name: workspaceId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The unique identifier of the workspace.
     documentId:
       name: documentId
       in: path
@@ -207,6 +200,13 @@ components:
       schema:
         type: string
       description: The unique identifier of the document.
+    workspaceId:
+      name: workspaceId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the workspace.
   securitySchemes:
     bearerAuth:
       type: http

@@ -162,6 +162,33 @@ paths:
           description: Member added to group
 components:
   schemas:
+    Group:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the group.
+        name:
+          type: string
+          description: Group name.
+        type:
+          type: string
+          description: Group type.
+        note:
+          type: string
+          description: Group description or note.
+        memberCount:
+          type: integer
+          description: Number of members in the group.
+        foldersWithAccess:
+          type: integer
+          description: Number of folders accessible to this group.
+        createdOn:
+          type: string
+          format: date-time
+        updatedOn:
+          type: string
+          format: date-time
     User:
       type: object
       properties:
@@ -190,41 +217,7 @@ components:
         createdOn:
           type: string
           format: date-time
-    Group:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the group.
-        name:
-          type: string
-          description: Group name.
-        type:
-          type: string
-          description: Group type.
-        note:
-          type: string
-          description: Group description or note.
-        memberCount:
-          type: integer
-          description: Number of members in the group.
-        foldersWithAccess:
-          type: integer
-          description: Number of folders accessible to this group.
-        createdOn:
-          type: string
-          format: date-time
-        updatedOn:
-          type: string
-          format: date-time
   parameters:
-    workspaceId:
-      name: workspaceId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The unique identifier of the workspace.
     groupId:
       name: groupId
       in: path
@@ -232,6 +225,13 @@ components:
       schema:
         type: string
       description: The unique identifier of the group.
+    workspaceId:
+      name: workspaceId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the workspace.
   securitySchemes:
     bearerAuth:
       type: http

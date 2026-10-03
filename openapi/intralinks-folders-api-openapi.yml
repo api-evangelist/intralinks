@@ -118,13 +118,6 @@ paths:
           description: Folder deleted
 components:
   parameters:
-    folderId:
-      name: folderId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The unique identifier of the folder.
     workspaceId:
       name: workspaceId
       in: path
@@ -132,6 +125,13 @@ components:
       schema:
         type: string
       description: The unique identifier of the workspace.
+    folderId:
+      name: folderId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the folder.
   schemas:
     Folder:
       type: object
