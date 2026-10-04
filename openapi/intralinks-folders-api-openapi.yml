@@ -117,21 +117,6 @@ paths:
         '204':
           description: Folder deleted
 components:
-  parameters:
-    workspaceId:
-      name: workspaceId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The unique identifier of the workspace.
-    folderId:
-      name: folderId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The unique identifier of the folder.
   schemas:
     Folder:
       type: object
@@ -160,6 +145,21 @@ components:
         updatedOn:
           type: string
           format: date-time
+  parameters:
+    folderId:
+      name: folderId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the folder.
+    workspaceId:
+      name: workspaceId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the workspace.
   securitySchemes:
     bearerAuth:
       type: http

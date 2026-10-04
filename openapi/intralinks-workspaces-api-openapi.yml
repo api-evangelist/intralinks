@@ -125,14 +125,6 @@ paths:
         '204':
           description: Workspace deleted
 components:
-  parameters:
-    workspaceId:
-      name: workspaceId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The unique identifier of the workspace.
   schemas:
     Workspace:
       type: object
@@ -174,6 +166,14 @@ components:
               type: integer
             groupCount:
               type: integer
+  parameters:
+    workspaceId:
+      name: workspaceId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the workspace.
   securitySchemes:
     bearerAuth:
       type: http
