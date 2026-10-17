@@ -154,6 +154,21 @@ paths:
                 type: string
                 format: binary
 components:
+  parameters:
+    documentId:
+      name: documentId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the document.
+    workspaceId:
+      name: workspaceId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The unique identifier of the workspace.
   schemas:
     Document:
       type: object
@@ -192,21 +207,6 @@ components:
         lastAccessedOn:
           type: string
           format: date-time
-  parameters:
-    documentId:
-      name: documentId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The unique identifier of the document.
-    workspaceId:
-      name: workspaceId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The unique identifier of the workspace.
   securitySchemes:
     bearerAuth:
       type: http
